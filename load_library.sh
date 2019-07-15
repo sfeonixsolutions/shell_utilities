@@ -1,4 +1,5 @@
 GIT_REPO="https://raw.githubusercontent.com/satinjeet/shell_utilities/master/"
+CLEARING_LIST=""
 
 echo ">> Curl command is expectected to on this system."
 cul=$(which curl)
@@ -30,7 +31,7 @@ load_lib() {
     if [ $SHOULD_I_CURL == "yes" ];
     then
         echo ">> Obtaining module \"$NAME\" ~ $FILE_PATH."
-        $(curl -kL "$FILE_PATH" > /tmp/$NAME)
+        $(curl -skL "$FILE_PATH?$(date +%s)" > /tmp/$NAME)
 
         if [ "$?" == "1" ];
         then
@@ -42,12 +43,5 @@ load_lib() {
     fi
 
     source /tmp/$NAME
+    CLEARING_LIST="$CLEARING_LIST /tmp/$NAME"
 }
-
-load_lib arrow_key_detection
-
-echo $KEY_LEFT
-echo $KEY_RIGHT
-echo $KEY_UP
-echo $KEY_DOWN
-echo $KEY_ENTER
