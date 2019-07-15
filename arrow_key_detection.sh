@@ -24,36 +24,36 @@ read_arrow_key() {
     echo "$key" | grep "$arrowup"  #Check if character code detected.
     if [ "$?" -eq $SUCCESS ]
     then
-        echo $KEY_UP
+        echo "$KEY_UP"
         return 0
     fi
     
     echo "$key" | grep "$arrowdown"
     if [ "$?" -eq $SUCCESS ]
     then
-        echo $KEY_DOWN
+        echo "$KEY_DOWN"
         return 0
     fi
     
     echo "$key" | grep "$arrowrt"
     if [ "$?" -eq $SUCCESS ]
     then
-        echo $KEY_RIGHT
+        echo "$KEY_RIGHT"
         return 0
     fi
     
     echo "$key" | grep "$arrowleft"
     if [ "$?" -eq $SUCCESS ]
     then
-        echo $KEY_LEFT
+        echo "$KEY_LEFT"
         return 0
     fi
 
     if [ "$key" == "" ]
     then
-        echo $KEY_ENTER
+        echo "$KEY_ENTER"
         return 0
     fi
 
-    echo $OUTPT; 
+    echo "$OUTPT"; 
 }

@@ -18,7 +18,7 @@ load_lib() {
     then
         FILE_PATH="$2.sh"
         SHOULD_I_CURL="no"
-        NAME="$2.sh"
+        NAME="$3.sh"
     elif [ $1 == "-u" ];
     then
         FILE_PATH="$2.sh"
@@ -39,7 +39,7 @@ load_lib() {
             exit 1
         fi
     else
-        mv $FILE_PATH /tmp/$NAME
+        cp $FILE_PATH /tmp/$NAME
     fi
 
     source /tmp/$NAME
