@@ -62,6 +62,3 @@ read_arrow_key() {
 
     echo $OUTPT; 
 }
-
-p=`read_arrow_key`
-echo $p;
