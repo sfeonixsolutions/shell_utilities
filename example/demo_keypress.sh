@@ -7,13 +7,7 @@ source $PWD/load_library.sh
 load_lib -a $PWD/colors colors
 # Load keypress detection
 load_lib -a $PWD/arrow_key_detection arrow_key_detection
-# load validators
-load_lib -a $PWD/validators validators
-# load menu library
-load_lib -a $PWD/select_one_menu select_one_menu
 
-options=('Option 1' 'Option 2' 'Option 3' 'Option 4' 'Option 5')
-menu_select_one "${options[@]}"
-selected_option=$?
 
-echo "${options[$selected_option]}"
+KEY=`read_arrow_key`
+echo $KEY

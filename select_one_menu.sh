@@ -10,7 +10,12 @@ menu_select_one() {
         echo "Expected the argument to be an array of string options, something is not right here..."
         exit 1
     fi
-    
+    echo "
+Menu:
+ - ↑,← Move up.
+ - ↓,→ Move down.
+ - ↵ Enter to finish the selection.
+"
     while true
     do
         if [ $loop_counter -gt 0 ]; then
@@ -58,4 +63,3 @@ menu_select_one() {
         return $MENU_SELECTED
     fi
 }
-
