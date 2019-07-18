@@ -78,7 +78,7 @@ fi
 
 ___
 
-### 4.Menu List - Single Selection select
+### 4.Menu List - Single Selection
 
 This script easy provides a way to create an interactive menu & return the selected option from the menu. This script uses `colors` & `arrow_key_detection` to handle layout & interaction. **For now the colors & arrow key detection needs to be loaded externally, while load_lib is worked upon**.
 
@@ -136,5 +136,70 @@ Menu:
 4. Option 4
 5. Option 5
 
+Option 3
+```
+___
+### 5.Menu List - Multi Selection
+
+This script easy provides a way to create an interactive menu to select multiple options & exposes the selected options as a global variable `MENU_SELECTED_OPTIONS`.
+This script also uses `colors` & `arrow_key_detection` to handle layout & interaction. **For now the colors & arrow key detection needs to be loaded externally, while load_lib is worked upon**.
+
+`MENU_SELECTED_OPTIONS` is exposed after the menu layout is executed. it is an array with indexes of the chosen options. In case of no selection and empty array `()` is returned.
+
+```bash
+Menu:
+ - ↑↓ move between options.
+ - → Select the option.
+ - ← De-Select the option.
+ - ↵ Enter to finish the selection.
+
+( ) Option 1
+( ) Option 2
+( ) Option 3
+( ) Option 4
+( ) Option 5
+```
+
+**Usage**
+```bash
+source <github_url>/load_library.sh
+
+# Load required libraries for the menu.
+# Load colors
+load_lib colors
+# Load keypress detection
+load_lib arrow_key_detection
+# load validators
+load_lib validators
+# load menu library
+load_lib select_multiple_menu
+
+options=('Option 1' 'Option 2' 'Option 3' 'Option 4' 'Option 5')
+menu_select_multiple "${options[@]}"
+
+echo "your selection: "
+for s in "${MENU_SELECTED_OPTIONS[@]}"
+do
+    echo "${options[$s]}"
+done
+
+```
+> Output
+
+```bash
+Menu:
+ - ↑↓ move between options.
+ - → Select the option.
+ - ← De-Select the option.
+ - ↵ Enter to finish the selection.
+
+(X) Option 1
+( ) Option 2
+(X) Option 3
+( ) Option 4
+( ) Option 5
+
+your selection: 
+Option 1
 Option 3
 ```
