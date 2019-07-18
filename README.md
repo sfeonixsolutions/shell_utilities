@@ -26,32 +26,32 @@ This script allows you to load another shell script that includes other useful f
 **Usage**<br />
 To load the load_library script use
 ```bash
-    $(curl -skL "https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh?$(date +%s)" | bash)
-    # OR
-    $(curl -skL "https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh?$(date +%s)" > /tmp/load_library.sh)
-    source /tmp/load_library.sh
+$(curl -skL "https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh?$(date +%s)" | bash)
+# OR
+$(curl -skL "https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh?$(date +%s)" > /tmp/load_library.sh)
+source /tmp/load_library.sh
 
 
-    # Using
-    load_lib <path_to_library>
+# Using
+load_lib <path_to_library>
 ```
 
 To load a script from this github repository, simple use
 ```bash
-    load_lib colors
-    load_lib arrow_key_detection
+load_lib colors
+load_lib arrow_key_detection
 ```
 
 To load a script from this another URL, use the `-u` flag. `-u` indicates that script does not need to parse the url. 
 ```bash
-    load_lib -u <some_url>/colors
-    load_lib -u <some_url>/arrow_key_detection
+load_lib -u <some_url>/colors
+load_lib -u <some_url>/arrow_key_detection
 ```
 
 To load a script from filesystem, use the `-a` flag. `-a` indicates that script does not need to curl for the script. 
 ```bash
-    load_lib -a /<directory_path>/colors
-    load_lib -a <directory_path>/arrow_key_detection
+load_lib -a /<directory_path>/colors
+load_lib -a <directory_path>/arrow_key_detection
 ```
 ___
 
@@ -67,14 +67,13 @@ The command echoes the result, as well as returns an exit code 0 for successful 
 
 **Usage**<br />
 ```bash
-    KEY=`read_arrow_key`
-    echo $KEY
+KEY=`read_arrow_key`
+echo $KEY
 
-
-    KEY=`read_arrow_key`
-    if [ "$KEY" == "$KEY_RIGHT" ];then
-        echo "Right key was pressed."
-    fi
+KEY=`read_arrow_key`
+if [ "$KEY" == "$KEY_RIGHT" ];then
+    echo "Right key was pressed."
+fi
 ```
 
 ___
@@ -122,4 +121,20 @@ menu_select_one "${options[@]}"
 selected_option=$?
 
 echo "${options[$selected_option]}"
+```
+> Output
+
+```bash
+Menu:
+ - ↑,← Move up.
+ - ↓,→ Move down.
+ - ↵ Enter to finish the selection.
+
+1. Option 1
+2. Option 2
+>> Option 3                                 # user chose this option & hit enter
+4. Option 4
+5. Option 5
+
+Option 3
 ```
