@@ -3,11 +3,13 @@
 menu_select_multiple() {
     echo ""
 
-    is_array "${MENU_SELECTED_OPTIONS[@]}"
-    if [ $? -gt 0 ]; then
-        echo "MENU_SELECTED_OPTIONS needs to be set for this menu to work.";
-        exit 1;
-    fi
+    # MENU_SELECTED_OPTIONS=${MENU_SELECTED_OPTIONS:-()}
+    # TODO fix validation.
+    # is_array "${MENU_SELECTED_OPTIONS[@]}"
+    # if [ $? -gt 0 ]; then
+    #     echo "MENU_SELECTED_OPTIONS needs to be set for this menu to work.";
+    #     exit 1;
+    # fi
 
     local MENU_OPTIONS=("$@")
     local MENU_HIGHLIGHTED=0
@@ -35,7 +37,7 @@ Menu:
         for i in "${!MENU_OPTIONS[@]}"
         do
             NUM=$((i+1))
-            if [[ "${MENU_SELECTED_OPTIONS[$NUM]}" == "$NUM" ]];then
+            if [[ "${MENU_SELECTED_OPTIONS[$NUM]}" != "" ]];then
                 echo "${FONT_BOLD}(X) ${COLOR_GREEN}${MENU_OPTIONS[$i]}${FONT_NORMAL}"
             elif [[ "$MENU_HIGHLIGHTED" == "$NUM" ]];then
                 echo "${FONT_BOLD}( ) ${COLOR_BLUE}${MENU_OPTIONS[$i]}${FONT_NORMAL}"
@@ -56,7 +58,7 @@ Menu:
             unset MENU_SELECTED_OPTIONS[$MENU_HIGHLIGHTED]
         elif [[ "$KEY" == "$KEY_RIGHT" ]]; then
             if [ $MENU_HIGHLIGHTED -ge 1 -a $MENU_HIGHLIGHTED -le ${#MENU_OPTIONS[@]} ]; then
-                MENU_SELECTED_OPTIONS[$MENU_HIGHLIGHTED]=$MENU_HIGHLIGHTED
+                MENU_SELECTED_OPTIONS[$MENU_HIGHLIGHTED]=$((MENU_HIGHLIGHTED-1))
             fi
         else
             break

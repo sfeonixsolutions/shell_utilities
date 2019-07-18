@@ -12,11 +12,15 @@ load_lib -a $PWD/validators validators
 # load menu library
 load_lib -a $PWD/select_multiple_menu select_multiple_menu
 
-MENU_SELECTED_OPTIONS=()
+# MENU_SELECTED_OPTIONS=()
 
 options=('Option 1' 'Option 2' 'Option 3' 'Option 4' 'Option 5')
 menu_select_multiple "${options[@]}"
 
-echo "${MENU_SELECTED_OPTIONS[@]}"
+echo "your selection: "
+for s in "${MENU_SELECTED_OPTIONS[@]}"
+do
+    echo "${options[$s]}"
+done
 
 # echo "${options[$selected_option]}"
