@@ -10,38 +10,83 @@ then
     exit 1
 fi
 
-load_lib() {
-    SHOULD_I_CURL="yes"
-    NAME=""
-
-    if [ $1 == "-a" ];
-    then
-        FILE_PATH="$2.sh"
-        SHOULD_I_CURL="no"
-        NAME="$3.sh"
-    elif [ $1 == "-u" ];
-    then
-        FILE_PATH="$2.sh"
-        NAME="$2.sh"
-    else
-        FILE_PATH="$GIT_REPO$1.sh"
-        NAME="$1.sh"
+debug_echo() {
+    if [ "$DEBUG_MODE" == "yes" ]; then
+        echo "$1"
     fi
-    
-    if [ $SHOULD_I_CURL == "yes" ];
-    then
-        echo ">> Obtaining module \"$NAME\" ~ $FILE_PATH."
-        $(curl -skL "$FILE_PATH?$(date +%s)" > /tmp/$NAME)
+}
 
-        if [ "$?" == "1" ];
-        then
-            echo ">> Curl: Failed to obtain module \"$NAME\""
+load_lib() {
+    local FONT_BOLD=$(tput bold)
+    local FONT_NORMAL=$(tput sgr0)
+
+    DEBUG_MODE="no"
+    local MODE_REPO="yes"
+    local MODE_ABSOLUTE="no"
+    local MODE_URL="no"
+    local MODE_FORCE="no"
+
+    local ALL_ARGS=("$@")
+    local USEFUL_ARGS=()
+
+    for i in "${!ALL_ARGS[@]}"
+    do
+        local V_V="${ALL_ARGS[$i]}"
+        if [ "$V_V" == "-d" ]; then DEBUG_MODE="yes"; unset ALL_ARGS[$i]
+        elif [ "$V_V" == "-a" ]; then MODE_ABSOLUTE="yes"; unset ALL_ARGS[$i]
+        elif [ "$V_V" == "-u" ]; then MODE_URL="yes"; unset ALL_ARGS[$i]
+        elif [ "$V_V" == "-f" ]; then MODE_FORCE="yes"; unset ALL_ARGS[$i]
+        else USEFUL_ARGS+=($V_V)
+        fi
+    done
+
+    if [[ "$MODE_ABSOLUTE" == "yes" || "$MODE_URL" == "yes" ]]; then
+        MODE_REPO="no"
+    fi
+
+    debug_echo "UA >> ${USEFUL_ARGS[@]}"
+
+    if [ "$MODE_ABSOLUTE" == "yes" ];
+    then
+        if [[ "${USEFUL_ARGS[1]}" == "" ]]; then
+            echo ">> Failed !!\\n>> For loaded modules with -a option, please prodvide name for the script \"${FONT_BOLD}load_lib -a <path>/module module${FONT_NORMAL}\""
             exit 1
         fi
+        FILE_PATH="${USEFUL_ARGS[0]}.sh"
+        NAME="${USEFUL_ARGS[1]}.sh"
+    elif [ "$MODE_URL" == "yes" ];
+    then
+        if [[ "${USEFUL_ARGS[1]}" == "" ]]; then
+            echo ">> Failed!!.\\n>> For loaded modules with -u option, please prodvide name for the script ${FONT_BOLD}load_lib -a <path>/module module${FONT_NORMAL}"
+            exit 1
+        fi
+        FILE_PATH="${USEFUL_ARGS[0]}.sh"
+        NAME="${USEFUL_ARGS[1]}.sh"
+    elif [ "$MODE_REPO" == "yes" ]; then
+        FILE_PATH="$GIT_REPO${USEFUL_ARGS[0]}.sh"
+        NAME="${USEFUL_ARGS[0]}.sh"
+    fi
+    
+    if [[ "$MODE_REPO" == "yes" || "$MODE_URL" == "yes" ]]; then
+        if [[ -f /tmp/$NAME && "$MODE_FORCE" == "no" ]]; then
+            echo ">> Using cached module \"$NAME\" ~ $FILE_PATH."
+        else
+            if [ "$MODE_FORCE" == "yes" ]; then f_f="${FONT_BOLD}(-f)"; fi
+            echo ">>$f_f Obtaining module \"$NAME\" ~ $FILE_PATH.${FONT_NORMAL}"
+            $(curl -skL "$FILE_PATH?$(date +%s)" > /tmp/$NAME)
+
+            if [ "$?" == "1" ];
+            then
+                echo ">> Curl: Failed to obtain module \"$NAME\""
+                exit 1
+            fi
+        fi
+        
     else
+        echo ">> Obtaining module \"$NAME\" ~ $FILE_PATH."
         cp $FILE_PATH /tmp/$NAME
     fi
 
     source /tmp/$NAME
-    CLEARING_LIST="$CLEARING_LIST /tmp/$NAME"
+    # CLEARING_LIST="$CLEARING_LIST /tmp/$NAME"
 }
