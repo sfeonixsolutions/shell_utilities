@@ -17,8 +17,8 @@ debug_echo() {
 }
 
 load_lib() {
-    local FONT_BOLD=$(tput bold)
-    local FONT_NORMAL=$(tput sgr0)
+    local FONT_BOLD_L=$(tput bold)
+    local FONT_NORMAL_L=$(tput sgr0)
 
     DEBUG_MODE="no"
     local MODE_REPO="yes"
@@ -49,7 +49,7 @@ load_lib() {
     if [ "$MODE_ABSOLUTE" == "yes" ];
     then
         if [[ "${USEFUL_ARGS[1]}" == "" ]]; then
-            echo ">> Failed !!\\n>> For loaded modules with -a option, please prodvide name for the script \"${FONT_BOLD}load_lib -a <path>/module module${FONT_NORMAL}\""
+            echo ">> Failed !!\\n>> For loaded modules with -a option, please prodvide name for the script \"${FONT_BOLD_L}load_lib -a <path>/module module${FONT_NORMAL_L}\""
             exit 1
         fi
         FILE_PATH="${USEFUL_ARGS[0]}.sh"
@@ -57,7 +57,7 @@ load_lib() {
     elif [ "$MODE_URL" == "yes" ];
     then
         if [[ "${USEFUL_ARGS[1]}" == "" ]]; then
-            echo ">> Failed!!.\\n>> For loaded modules with -u option, please prodvide name for the script ${FONT_BOLD}load_lib -a <path>/module module${FONT_NORMAL}"
+            echo ">> Failed!!.\\n>> For loaded modules with -u option, please prodvide name for the script ${FONT_BOLD_L}load_lib -a <path>/module module${FONT_NORMAL_L}"
             exit 1
         fi
         FILE_PATH="${USEFUL_ARGS[0]}.sh"
@@ -71,8 +71,8 @@ load_lib() {
         if [[ -f /tmp/$NAME && "$MODE_FORCE" == "no" ]]; then
             echo ">> Using cached module \"$NAME\" ~ $FILE_PATH."
         else
-            if [ "$MODE_FORCE" == "yes" ]; then f_f="${FONT_BOLD}(-f)"; fi
-            echo ">>$f_f Obtaining module \"$NAME\" ~ $FILE_PATH.${FONT_NORMAL}"
+            if [ "$MODE_FORCE" == "yes" ]; then f_f="${FONT_BOLD_L}(-f)"; fi
+            echo ">>$f_f Obtaining module \"$NAME\" ~ $FILE_PATH.${FONT_NORMAL_L}"
             $(curl -skL "$FILE_PATH?$(date +%s)" > /tmp/$NAME)
 
             if [ "$?" == "1" ];
