@@ -71,7 +71,10 @@ load_lib() {
         if [[ -f /tmp/$NAME && "$MODE_FORCE" == "no" ]]; then
             echo ">> Using cached module \"$NAME\" ~ $FILE_PATH."
         else
-            if [ "$MODE_FORCE" == "yes" ]; then f_f="${FONT_BOLD_L}(-f)"; fi
+            if [ "$MODE_FORCE" == "yes" ]; then
+                f_f="${FONT_BOLD_L}(-f)";
+                rm /tmp/$NAME
+            fi
             echo ">>$f_f Obtaining module \"$NAME\" ~ $FILE_PATH.${FONT_NORMAL_L}"
             $(curl -skL "$FILE_PATH?$(date +%s)" > /tmp/$NAME)
 

@@ -1,5 +1,4 @@
-$(curl -skL "https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh?$(date +%s)" > /tmp/load_library.sh)
-source $PWD/load_library.sh
+source /dev/stdin <<< "$(curl -skL https://raw.githubusercontent.com/satinjeet/shell_utilities/master/load_library.sh\?$(date +%s))"
 
 # Load required libraries for the menu.
 # Load colors
@@ -9,7 +8,7 @@ load_lib -f arrow_key_detection
 # load validators
 load_lib -f validators
 # load menu library
-load_lib -a $PWD/select_multiple_menu select_multiple_menu
+load_lib select_multiple_menu
 
 # MENU_SELECTED_OPTIONS=()
 
