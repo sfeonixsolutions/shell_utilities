@@ -16,8 +16,6 @@ loop_loading() {
     local f=$1
     local final=${f:-10}
 
-    echo "$final < Final"
-
     while [ $i -le $final ];
     do
         loading "Testing Loading"
