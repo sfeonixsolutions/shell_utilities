@@ -12,7 +12,7 @@ load_lib arrow_key_detection
 # load validators
 load_lib validators
 # load menu library
-load_lib select_one_menu
+load_lib -f select_one_menu
 
 options=('Option 1' 'Option 2' 'Option 3' 'Option 4' 'Option 5')
 menu_select_one "${options[@]}"
