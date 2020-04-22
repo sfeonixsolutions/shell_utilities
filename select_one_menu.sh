@@ -4,14 +4,15 @@ menu_select_one() {
     local MENU_OPTIONS=("$@")
     local MENU_SELECTED=0
     local loop_counter=0
-    
+    [ "$S_MENU_TITLE" == "" ] && S_MENU_TITLE="Menu"
+
     is_array "${MENU_OPTIONS[@]}"
     if [ $? -gt 0 ]; then
         echo "Expected the argument to be an array of string options, something is not right here..."
         exit 1
     fi
     echo "
-Menu:
+$S_MENU_TITLE:
  - ↑,← Move up.
  - ↓,→ Move down.
  - ↵ Enter to finish the selection.

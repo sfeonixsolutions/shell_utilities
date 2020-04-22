@@ -14,6 +14,7 @@ menu_select_multiple() {
     local MENU_OPTIONS=("$@")
     local MENU_HIGHLIGHTED=0
     local loop_counter=0
+    [ "$M_MENU_TITLE" == "" ] && M_MENU_TITLE="Menu"
     
     is_array "${MENU_OPTIONS[@]}"
     if [ $? -gt 0 ]; then
@@ -22,7 +23,7 @@ menu_select_multiple() {
     fi
     
     echo "
-Menu:
+$M_MENU_TITLE:
  - ↑↓ move between options.
  - → Select the option.
  - ← De-Select the option.
