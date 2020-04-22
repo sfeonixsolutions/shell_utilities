@@ -1,5 +1,4 @@
 menu_select_one() {
-    echo ""
 
     local MENU_OPTIONS=("$@")
     local MENU_SELECTED=0

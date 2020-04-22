@@ -1,8 +1,6 @@
 # Expect a result variable
 # MENU_SELECTED_OPTIONS
 menu_select_multiple() {
-    echo ""
-
     # MENU_SELECTED_OPTIONS=${MENU_SELECTED_OPTIONS:-()}
     # TODO fix validation.
     # is_array "${MENU_SELECTED_OPTIONS[@]}"
