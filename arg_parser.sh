@@ -47,12 +47,21 @@ flag_set() {
 }
 
 get_arg() {
+    DEF_V=""
+    if [ -n "$3" ]; then
+        DEF_V="$3"
+    elif [ -z "$3" ] && [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        DEF_V="$2"
+    fi
+
     for i in "${!A_FLAGS[@]}"; do
         if [[ "${A_FLAGS[$i]}" = "$1" || "${A_FLAGS[$i]}" = "$2" ]]; then
             echo "${A_VALS[$i]}"
             break
         fi
     done
+
+    echo "$DEF_V"
 }
 
 get_params() {
