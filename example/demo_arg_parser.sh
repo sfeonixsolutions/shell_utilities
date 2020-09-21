@@ -9,11 +9,15 @@ p2=$(flag_set -n)
 
 v1=$(get_arg -b)
 v2=$(get_arg -c)
+v3=$(get_arg --key)
 
 params=$(get_params)
 
-echo "-a is set? $p1" 
-echo "-n is set? $p2" 
+echo "\n-a is set? $p1"
+echo "\n-n is set? $p2"
 
-echo "value for -b: $v1"
-echo "value for -c: $v2"
+echo "\nvalue for -b: $v1"
+echo "\nvalue for -c: $v2"
+echo "\nvalue for --key: $v3"
+
+echo "\nParams: $params"
