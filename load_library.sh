@@ -1,7 +1,7 @@
 GIT_REPO="https://raw.githubusercontent.com/satinjeet/shell_utilities/master/"
 CLEARING_LIST=""
 
-echo ">> Curl command is expectected to on this system."
+echo ">> Curl command is expectected to be installed on this system."
 cul=$(which curl)
 
 if [ "$?" == "1" ];
