@@ -1,3 +1,4 @@
+#!/bin/sh
 source $PWD/load_library.sh
 
 load_lib -a $PWD/arg_parser arg_parser

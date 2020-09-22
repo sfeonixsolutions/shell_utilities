@@ -56,7 +56,7 @@ get_arg() {
 
     for i in "${!A_FLAGS[@]}"; do
         if [[ "${A_FLAGS[$i]}" = "$1" || "${A_FLAGS[$i]}" = "$2" ]]; then
-            echo "${A_VALS[$i]}"
+            DEF_V="${A_VALS[$i]}"
             break
         fi
     done
