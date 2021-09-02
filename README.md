@@ -1,21 +1,21 @@
-# Shell Utilities _v: 0.2.0_
+# Shell Utilities _v: 0.3.0_
 
 This project exposes some useful shell utilities to help writing managed & modular bash scripts.
 
 ___
 
 ## Utilities
-1. load_library
-2. colors
-3. arrow_key_detection
-4. List menu - single selection.
-5. List menu - Multiple seletion.
-6. Helpers
+1. [Load Library `load_library.sh`](#Hash1)
+2. [Colors `colors.sh`](#Hash2)
+3. [Arrow Keypress Detection `arrow_key_detection.sh`](#Hash3)
+4. [Menu List - Single Selection](#Hash4)
+5. [Menu List - Multi Selection](#Hash5)
+6. [Helpers](#Hash6)
     - validators
 
 ___
 
-### 1. Load Library `load_library.sh`
+### <a id="Hash1"></a>1. Load Library `load_library.sh`
 
 This script allows you to load another shell script that includes other useful functions or variables. Load library will need to be required by the main script on top. Once loaded, you can now load scripts from URLS or file path easily. By default the load_library will try to get the script from this github repository. Please check examples to see the exact scenarios.
 
@@ -55,11 +55,11 @@ load_lib -a <directory_path>/arrow_key_detection
 ```
 ___
 
-### 2. Colors `colors.sh`
+### <a id="Hash2"></a>2. Colors `colors.sh`
 
 Provides a handy list of variables with unicodes for various colors & font styles.
 ___
-### 3. Arrow Keypress Detection `arrow_key_detection.sh`
+### <a id="Hash3"></a>3. Arrow Keypress Detection `arrow_key_detection.sh`
 
 Provides a method to detect if arrow keys were pressed. It is a simple loop, limited right now to detect four arrow keys & an extra case for any other key press. It exposes the method `read_arrow_key` to start the keypress detection & four variables KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN as return values as well as something to compare the values that are recieved.
 
@@ -78,7 +78,7 @@ fi
 
 ___
 
-### 4.Menu List - Single Selection
+### <a id="Hash4"></a>4. Menu List - Single Selection
 
 This script easy provides a way to create an interactive menu & return the selected option from the menu. This script uses `colors` & `arrow_key_detection` to handle layout & interaction. **For now the colors & arrow key detection needs to be loaded externally, while load_lib is worked upon**.
 
@@ -139,7 +139,7 @@ Menu:
 Option 3
 ```
 ___
-### 5.Menu List - Multi Selection
+### <a id="Hash5"></a>5. Menu List - Multi Selection
 
 This script easy provides a way to create an interactive menu to select multiple options & exposes the selected options as a global variable `MENU_SELECTED_OPTIONS`.
 This script also uses `colors` & `arrow_key_detection` to handle layout & interaction. **For now the colors & arrow key detection needs to be loaded externally, while load_lib is worked upon**.
@@ -202,4 +202,25 @@ Menu:
 your selection: 
 Option 1
 Option 3
+```
+___
+### <a id="Hash6"></a>6. Utilities
+#### <a id="Hash6_1"></a>6.1 Argument Parser `arg_parser.sh`
+Argument Parser library allows you to support parsing arguments supplied to the script and divide them into 4 categories
+1. Named arguments. f.e `myscript -c something`
+2. Flags. f.e `myscript -f -c something`
+3. Params. f.e `myscript -f -c something param1`
+4. -- double dash for now is used to stop parsing arguments and record everything after to a separate set f.e `myscript -f -c something param1 -- another set of arguments`
+
+Usage
+```bash
+source <github_url>/load_library.sh
+
+load_lib arg_parser
+parse_args $@
+
+flag1=$(flag_set -a) # compare for "yes" or "no"
+arg1=$(get_arg -c default)
+params=$(get_params)
+ddParams=$(get_rest)
 ```

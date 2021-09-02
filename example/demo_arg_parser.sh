@@ -17,6 +17,7 @@ d3=$(get_arg -c --compress)
 d4=$(get_arg -c --compress default)
 
 params=$(get_params)
+rest=$(get_rest)
 
 echo "\n-a is set? $p1"
 echo "\n-n is set? $p2"
@@ -30,3 +31,4 @@ echo "\ndefault value for -c --compress: $d3"
 echo "\ndefault value for -c --compress default: $d4"
 
 echo "\nParams: $params"
+echo "\nRest: $rest"

@@ -7,11 +7,18 @@ Please read https://medium.com/@Drew_Stokes/bash-argument-parsing-54f3b81a6a8f f
 
 A_FLAGS=()
 A_VALS=()
+REST=""
 
 parse_args() {
     PARAMS=""
     while (( "$#" )); do
         case "$1" in
+            --)
+                # When encountered with --, shift the rest of the arguments into parameters
+                shift
+                REST="$@"
+                break
+            ;;
             -*|--*=) # unsupported flags
                 if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
                     A_FLAGS+=("$1")
@@ -66,4 +73,8 @@ get_arg() {
 
 get_params() {
     echo "$PARAMS"
+}
+
+get_rest() {
+    echo "$REST"
 }
