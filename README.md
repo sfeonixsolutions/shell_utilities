@@ -1,4 +1,4 @@
-# Shell Utilities _v: 0.3.0_
+# Shell Utilities _v: 0.4.0_
 
 This project exposes some useful shell utilities to help writing managed & modular bash scripts.
 

@@ -1,8 +1,8 @@
-GIT_REPO="https://raw.githubusercontent.com/sfeonixsolutions/shell_utilities/master/"
+GIT_REPO="https://raw.githubusercontent.com/sfeonixsolutions/shell_utilities/feature/v0.4.0/"
 CLEARING_LIST=""
 
 echo ">> Curl command is expectected to be installed on this system."
-cul=$(which curl)
+curl http://example.com &> /dev/null
 
 if [ "$?" == "1" ];
 then
